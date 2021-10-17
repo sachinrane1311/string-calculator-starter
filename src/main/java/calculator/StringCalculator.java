@@ -2,36 +2,34 @@ package calculator;
 
 class StringCalculator {
 
-    public int add(String input) {
-        String[] numbers = input.split(",|\n");
+	public static int Add(String str) {
 
-        if (input.isEmpty()) {
-            return 0;
-        } else if (numbers.length > 1) {
-            return getSum(numbers);
-        }
-        return stringToInt(input);
-    }
+		int sum = 0;
+		String arr[] = str.split("[ , \n : ; // \\/ | . * %]+");
 
-    private int getSum(String[] numbers) {
-        int sum = 0;
-        for (String currentNumber:numbers) {
-            if (stringToInt(currentNumber) > 1000) {
-                continue;
-            }
-            sum += stringToInt(currentNumber);
-        }
-        return sum;
-    }
+		for (int i = 0; i < arr.length; i++) {
+			int num = Integer.parseInt(arr[i]);
+			if (num <0) {
+				System.out.println("negative number not allowed");
+				return 0;
+			}
+			else if(num>=1000) {
+				continue;
+			}
+			sum += num;
+		}
+		return sum;
+	}
+		public static int Add(String str, String delimeter) {
+			StringTokenizer st = new StringTokenizer(str, delimeter);
+			int sum = 0;
+			int number =0;
+			while(st.hasMoreTokens()) {
+				number = Integer.parseInt(st.nextToken());
+				sum += number;
+			}
 
-    private int stringToInt(String number) {
-        int num = Integer.parseInt(number);
-        if (num < 0) {
-            throw new IllegalArgumentException("Negative input!");
-        } else {
-            return num;
-        }
-    }
-
+		return sum;
+	}
 
 }
